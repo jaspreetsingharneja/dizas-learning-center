@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Diza's Learning Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --yellow:#FFD93D;
+  --orange:#FF6B35;
+  --blue:#4ECDC4;
+  --purple:#6C63FF;
+  --pink:#FF6B9D;
+  --green:#95D44A;
+  --dark:#1A1A2E;
+  --text:#2D2D44;
+  --light:#FFFDF5;
+  --card-radius:20px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:var(--light);color:var(--text);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:white;
+  border-bottom:3px solid var(--yellow);
+  padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  height:70px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+}
+.nav-logo{
+  font-family:'Baloo 2',cursive;
+  font-size:1.5rem;font-weight:800;color:var(--purple);
+  display:flex;align-items:center;gap:8px;
+  text-decoration:none;
+}
+.nav-logo span{color:var(--orange);}
+.nav-logo .star{font-size:1.2rem;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{
+  text-decoration:none;color:var(--text);
+  font-weight:700;font-size:0.95rem;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--purple);}
+.nav-cta{
+  background:var(--orange);color:white;
+  border:none;border-radius:50px;
+  padding:10px 22px;font-family:'Nunito',sans-serif;
+  font-size:0.9rem;font-weight:800;cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+  text-decoration:none;
+  box-shadow:0 4px 0 #c94e1f;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 0 #c94e1f;}
+.hamburger{display:none;background:none;border:none;cursor:pointer;font-size:1.6rem;}
+.mobile-menu{
+  display:none;position:fixed;top:70px;left:0;right:0;
+  background:white;border-bottom:3px solid var(--yellow);
+  padding:20px;z-index:99;
+  flex-direction:column;gap:16px;
+}
+.mobile-menu a{
+  font-weight:700;color:var(--text);text-decoration:none;
+  font-size:1.1rem;padding:8px 0;border-bottom:1px dashed #eee;
+}
+.mobile-menu.open{display:flex;}
+
+/* ── HERO ── */
+.hero{
+  min-height:92vh;
+  background:linear-gradient(135deg,#FFF9E6 0%,#FFF0F5 50%,#F0F5FF 100%);
+  display:flex;align-items:center;
+  padding:60px 5%;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:380px;height:380px;
+  background:radial-gradient(circle,rgba(108,99,255,0.12),transparent 70%);
+  border-radius:50%;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-40px;left:-40px;
+  width:280px;height:280px;
+  background:radial-gradient(circle,rgba(255,107,53,0.1),transparent 70%);
+  border-radius:50%;
+}
+.hero-inner{
+  max-width:1200px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--yellow);color:var(--dark);
+  border-radius:50px;padding:8px 18px;
+  font-size:0.85rem;font-weight:800;
+  margin-bottom:20px;
+  animation:bounceIn 0.6s ease;
+}
+.hero h1{
+  font-family:'Baloo 2',cursive;
+  font-size:clamp(2.2rem,5vw,3.4rem);
+  font-weight:800;line-height:1.15;
+  color:var(--dark);
+  margin-bottom:18px;
+  animation:slideUp 0.7s ease;
+}
+.hero h1 .highlight{color:var(--purple);}
+.hero h1 .highlight2{color:var(--orange);}
+.hero p{
+  font-size:1.05rem;color:#555;line-height:1.7;
+  margin-bottom:30px;max-width:480px;
+  animation:slideUp 0.8s ease;
+}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap;animation:slideUp 0.9s ease;}
+.btn-primary{
+  background:var(--purple);color:white;
+  border:none;border-radius:50px;
+  padding:14px 32px;font-family:'Nunito',sans-serif;
+  font-size:1rem;font-weight:800;cursor:pointer;
+  box-shadow:0 5px 0 #4a43cc;
+  transition:transform 0.2s,box-shadow 0.2s;
+  text-decoration:none;display:inline-block;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 7px 0 #4a43cc;}
+.btn-secondary{
+  background:white;color:var(--purple);
+  border:2.5px solid var(--purple);border-radius:50px;
+  padding:14px 32px;font-family:'Nunito',sans-serif;
+  font-size:1rem;font-weight:800;cursor:pointer;
+  transition:background 0.2s,color 0.2s;
+  text-decoration:none;display:inline-block;
+}
+.btn-secondary:hover{background:var(--purple);color:white;}
+.hero-stats{
+  display:flex;gap:28px;margin-top:36px;flex-wrap:wrap;
+  animation:slideUp 1s ease;
+}
+.stat{text-align:center;}
+.stat-num{
+  font-family:'Baloo 2',cursive;
+  font-size:1.8rem;font-weight:800;color:var(--purple);
+}
+.stat-label{font-size:0.8rem;color:#777;font-weight:600;}
+.hero-illustration{
+  display:flex;justify-content:center;align-items:center;
+  animation:float 3s ease-in-out infinite;
+}
+.hero-illustration svg{width:100%;max-width:420px;height:auto;}
+
+/* ── FLOATING SHAPES ── */
+.shape{
+  position:absolute;border-radius:50%;opacity:0.15;
+  animation:float 4s ease-in-out infinite;
+}
+.shape-1{width:60px;height:60px;background:var(--yellow);top:15%;left:8%;animation-delay:0s;}
+.shape-2{width:40px;height:40px;background:var(--blue);top:70%;right:12%;animation-delay:1s;}
+.shape-3{width:30px;height:30px;background:var(--pink);top:40%;right:5%;animation-delay:2s;}
+
+/* ── ABOUT ── */
+.about{
+  padding:90px 5%;
+  background:white;
+}
+.section-tag{
+  display:inline-block;
+  background:var(--yellow);color:var(--dark);
+  border-radius:6px;padding:4px 14px;
+  font-size:0.8rem;font-weight:800;letter-spacing:0.05em;
+  text-transform:uppercase;margin-bottom:12px;
+}
+.section-title{
+  font-family:'Baloo 2',cursive;
+  font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:800;color:var(--dark);
+  margin-bottom:14px;
+}
+.section-subtitle{
+  font-size:1rem;color:#666;max-width:560px;line-height:1.7;
+}
+.about-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+}
+.about-features{margin-top:30px;display:flex;flex-direction:column;gap:18px;}
+.feature-item{
+  display:flex;gap:14px;align-items:flex-start;
+}
+.feature-icon{
+  width:46px;height:46px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;flex-shrink:0;
+}
+.feature-icon.purple{background:#EEF0FF;}
+.feature-icon.orange{background:#FFF0EA;}
+.feature-icon.green{background:#F0FADF;}
+.feature-icon.blue{background:#E8FAFA;}
+.feature-text h4{font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:3px;}
+.feature-text p{font-size:0.88rem;color:#666;line-height:1.5;}
+.about-card{
+  background:linear-gradient(135deg,#F5F3FF,#FFF0F5);
+  border-radius:var(--card-radius);
+  padding:36px;text-align:center;
+  border:2px solid #e8e4ff;
+}
+.about-card .big-emoji{font-size:5rem;margin-bottom:16px;display:block;}
+.about-card h3{
+  font-family:'Baloo 2',cursive;font-size:1.4rem;
+  font-weight:800;color:var(--purple);margin-bottom:10px;
+}
+.about-card p{font-size:0.92rem;color:#666;line-height:1.7;}
+
+/* ── PROGRAMS ── */
+.programs{
+  padding:90px 5%;
+  background:linear-gradient(180deg,#FFFDF5 0%,#FFF5FA 100%);
+}
+.programs-inner{max-width:1100px;margin:0 auto;}
+.programs-header{text-align:center;margin-bottom:50px;}
+.programs-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:24px;
+}
+.program-card{
+  background:white;border-radius:var(--card-radius);
+  padding:32px;
+  transition:transform 0.3s,box-shadow 0.3s;
+  border:2px solid transparent;
+  cursor:default;
+  position:relative;overflow:hidden;
+}
+.program-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;
+}
+.program-card.math::before{background:var(--purple);}
+.program-card.science::before{background:var(--blue);}
+.program-card.english::before{background:var(--orange);}
+.program-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.10);}
+.program-card.math:hover{border-color:#EEF0FF;}
+.program-card.science:hover{border-color:#E8FAFA;}
+.program-card.english:hover{border-color:#FFF0EA;}
+.program-emoji{font-size:2.8rem;margin-bottom:16px;display:block;}
+.program-card h3{
+  font-family:'Baloo 2',cursive;
+  font-size:1.3rem;font-weight:800;color:var(--dark);margin-bottom:8px;
+}
+.program-card p{font-size:0.88rem;color:#666;line-height:1.6;margin-bottom:16px;}
+.grade-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.grade-badge{
+  border-radius:50px;padding:4px 12px;
+  font-size:0.75rem;font-weight:800;
+}
+.grade-badge.elem{background:#EEF0FF;color:var(--purple);}
+.grade-badge.mid{background:#FFF0EA;color:var(--orange);}
+.topic-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.topic-list li{
+  font-size:0.82rem;color:#555;
+  display:flex;align-items:center;gap:7px;
+}
+.topic-list li::before{content:'✓';color:var(--green);font-weight:800;}
+
+/* ── WHY US ── */
+.why{
+  padding:90px 5%;
+  background:var(--dark);color:white;
+}
+.why-inner{max-width:1100px;margin:0 auto;}
+.why-header{text-align:center;margin-bottom:50px;}
+.why-header .section-tag{background:var(--yellow);}
+.why-header .section-title{color:white;}
+.why-header .section-subtitle{color:rgba(255,255,255,0.65);max-width:560px;margin:0 auto;}
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+.why-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--card-radius);
+  padding:28px;text-align:center;
+  transition:background 0.3s;
+}
+.why-card:hover{background:rgba(255,255,255,0.1);}
+.why-icon{font-size:2.5rem;margin-bottom:14px;display:block;}
+.why-card h4{font-size:1rem;font-weight:800;margin-bottom:8px;color:white;}
+.why-card p{font-size:0.84rem;color:rgba(255,255,255,0.6);line-height:1.6;}
+
+/* ── TESTIMONIALS ── */
+.testimonials{
+  padding:90px 5%;
+  background:white;
+}
+.testimonials-inner{max-width:1100px;margin:0 auto;}
+.testimonials-header{text-align:center;margin-bottom:50px;}
+.testimonials-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+}
+.testimonial-card{
+  background:#FFFDF5;
+  border:2px solid var(--yellow);
+  border-radius:var(--card-radius);
+  padding:28px;
+  position:relative;
+}
+.quote-mark{
+  font-size:4rem;line-height:0.8;color:var(--yellow);
+  font-family:Georgia,serif;font-weight:900;
+  margin-bottom:10px;display:block;
+}
+.testimonial-text{font-size:0.92rem;color:#555;line-height:1.7;margin-bottom:20px;}
+.testimonial-author{display:flex;align-items:center;gap:12px;}
+.author-avatar{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-weight:800;color:white;
+  flex-shrink:0;
+}
+.author-name{font-size:0.9rem;font-weight:800;color:var(--dark);}
+.author-role{font-size:0.78rem;color:#888;}
+.stars{color:var(--yellow);font-size:0.9rem;margin-bottom:8px;}
+
+/* ── CONTACT ── */
+.contact{
+  padding:90px 5%;
+  background:linear-gradient(135deg,#F5F3FF 0%,#FFF0FA 100%);
+}
+.contact-inner{
+  max-width:1000px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;
+}
+.contact-info h2{
+  font-family:'Baloo 2',cursive;
+  font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;
+  color:var(--dark);margin-bottom:14px;
+}
+.contact-info p{font-size:0.95rem;color:#666;line-height:1.7;margin-bottom:28px;}
+.contact-details{display:flex;flex-direction:column;gap:14px;}
+.contact-item{
+  display:flex;align-items:center;gap:12px;
+  font-size:0.92rem;color:var(--text);font-weight:600;
+}
+.contact-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--purple);color:white;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.contact-form{
+  background:white;border-radius:var(--card-radius);
+  padding:36px;box-shadow:0 8px 30px rgba(108,99,255,0.08);
+}
+.contact-form h3{
+  font-family:'Baloo 2',cursive;
+  font-size:1.3rem;font-weight:800;color:var(--dark);margin-bottom:22px;
+}
+.form-row{margin-bottom:16px;}
+.form-row label{
+  display:block;font-size:0.82rem;font-weight:800;
+  color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.04em;
+}
+.form-row input,.form-row select,.form-row textarea{
+  width:100%;border:2px solid #e8e4ff;border-radius:10px;
+  padding:11px 14px;font-family:'Nunito',sans-serif;
+  font-size:0.92rem;color:var(--text);
+  transition:border-color 0.2s,box-shadow 0.2s;
+  outline:none;background:white;
+}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{
+  border-color:var(--purple);
+  box-shadow:0 0 0 3px rgba(108,99,255,0.12);
+}
+.form-row textarea{resize:vertical;min-height:90px;}
+.form-submit{
+  width:100%;background:var(--purple);color:white;
+  border:none;border-radius:50px;
+  padding:14px;font-family:'Nunito',sans-serif;
+  font-size:1rem;font-weight:800;cursor:pointer;
+  box-shadow:0 5px 0 #4a43cc;
+  transition:transform 0.2s,box-shadow 0.2s;
+  margin-top:6px;
+}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 7px 0 #4a43cc;}
+.form-success{
+  display:none;text-align:center;padding:20px;
+  font-size:1rem;font-weight:700;color:var(--purple);
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--dark);color:white;
+  padding:50px 5% 28px;
+}
+.footer-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;
+  padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.1);
+  margin-bottom:24px;
+}
+.footer-brand .logo{
+  font-family:'Baloo 2',cursive;
+  font-size:1.4rem;font-weight:800;color:var(--yellow);
+  margin-bottom:10px;display:block;
+}
+.footer-brand p{font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.6;}
+.footer-col h4{font-size:0.85rem;font-weight:800;margin-bottom:14px;color:var(--yellow);}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul a{
+  font-size:0.85rem;color:rgba(255,255,255,0.55);
+  text-decoration:none;transition:color 0.2s;
+}
+.footer-col ul a:hover{color:white;}
+.footer-bottom{
+  max-width:1100px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+}
+.footer-bottom p{font-size:0.8rem;color:rgba(255,255,255,0.4);}
+.footer-heart{color:var(--pink);}
+
+/* ── ANIMATIONS ── */
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+}
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(24px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes bounceIn{
+  from{opacity:0;transform:scale(0.8);}
+  to{opacity:1;transform:scale(1);}
+}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:block;}
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:36px;}
+  .hero-illustration{order:-1;}
+  .hero p{margin:0 auto 28px;}
+  .hero-buttons{justify-content:center;}
+  .hero-stats{justify-content:center;}
+  .about-inner{grid-template-columns:1fr;}
+  .contact-inner{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr;gap:28px;}
+  .footer-bottom{justify-content:center;text-align:center;}
+  .shape{display:none;}
+}
+@media(max-width:500px){
+  .hero-buttons{flex-direction:column;align-items:center;}
+  .btn-primary,.btn-secondary{width:100%;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">
+    <span class="star">⭐</span> Diza's <span>Learning</span> Center
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Enroll Now 🚀</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#programs" onclick="closeMobile()">Programs</a>
+  <a href="#testimonials" onclick="closeMobile()">Reviews</a>
+  <a href="#contact" onclick="closeMobile()">Contact / Enroll</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+  <div class="shape shape-3"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">🎉 Now Enrolling — Summer 2025</div>
+      <h1>Where <span class="highlight">Curious Kids</span> Become <span class="highlight2">Confident</span> Learners</h1>
+      <p>Diza's Learning Center offers fun, expert-led tutoring in Math, Science, and English for elementary and middle school students. Small groups, big results!</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">Enroll Today 🎒</a>
+        <a href="#programs" class="btn-secondary">See Programs</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">K–8</div><div class="stat-label">Grade Levels</div></div>
+        <div class="stat"><div class="stat-num">3</div><div class="stat-label">Core Subjects</div></div>
+        <div class="stat"><div class="stat-num">Small</div><div class="stat-label">Class Sizes</div></div>
+      </div>
+    </div>
+    <div class="hero-illustration">
+      <svg viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background circle -->
+        <circle cx="200" cy="200" r="170" fill="#EEF0FF" opacity="0.6"/>
+        <!-- Desk -->
+        <rect x="70" y="270" width="260" height="16" rx="8" fill="#C5C0F5"/>
+        <rect x="90" y="286" width="20" height="60" rx="6" fill="#B8B2F0"/>
+        <rect x="290" y="286" width="20" height="60" rx="6" fill="#B8B2F0"/>
+        <!-- Book stack -->
+        <rect x="80" y="230" width="70" height="12" rx="4" fill="#FF6B35"/>
+        <rect x="84" y="218" width="62" height="12" rx="4" fill="#FFD93D"/>
+        <rect x="88" y="206" width="54" height="12" rx="4" fill="#6C63FF"/>
+        <!-- Monitor / board -->
+        <rect x="140" y="170" width="130" height="90" rx="12" fill="#6C63FF"/>
+        <rect x="148" y="178" width="114" height="74" rx="8" fill="#EEF0FF"/>
+        <!-- Math on board -->
+        <text x="165" y="205" font-family="Arial" font-size="14" font-weight="bold" fill="#6C63FF">2x + 3 = 11</text>
+        <text x="175" y="228" font-family="Arial" font-size="12" fill="#FF6B35">x = 4 ✓</text>
+        <!-- Monitor stand -->
+        <rect x="195" y="260" width="20" height="14" rx="4" fill="#C5C0F5"/>
+        <rect x="180" y="272" width="50" height="8" rx="4" fill="#C5C0F5"/>
+        <!-- Kid 1 (left) -->
+        <circle cx="108" cy="178" r="24" fill="#FFD93D"/>
+        <circle cx="101" cy="172" r="5" fill="#1A1A2E"/>
+        <circle cx="115" cy="172" r="5" fill="#1A1A2E"/>
+        <path d="M101 184 Q108 190 115 184" stroke="#1A1A2E" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Hair kid 1 -->
+        <path d="M84 172 Q108 148 132 172" fill="#1A1A2E"/>
+        <!-- Kid 1 body -->
+        <rect x="92" y="202" width="32" height="36" rx="10" fill="#FF6B9D"/>
+        <!-- Kid 2 (right) -->
+        <circle cx="298" cy="178" r="24" fill="#95D44A"/>
+        <circle cx="291" cy="172" r="5" fill="#1A1A2E"/>
+        <circle cx="305" cy="172" r="5" fill="#1A1A2E"/>
+        <path d="M291 184 Q298 190 305 184" stroke="#1A1A2E" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Hair kid 2 -->
+        <path d="M280 165 Q298 150 316 165 L322 172 Q298 154 274 172Z" fill="#6B3A1F"/>
+        <!-- Kid 2 body -->
+        <rect x="282" y="202" width="32" height="36" rx="10" fill="#4ECDC4"/>
+        <!-- Stars floating -->
+        <text x="52" y="140" font-size="22" fill="#FFD93D">⭐</text>
+        <text x="326" y="130" font-size="18" fill="#FF6B9D">💡</text>
+        <text x="42" y="240" font-size="16" fill="#6C63FF">📐</text>
+        <text x="336" y="250" font-size="16" fill="#FF6B35">🔬</text>
+        <text x="175" y="145" font-size="18" fill="#95D44A">📚</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="fade-in">
+      <div class="section-tag">✨ Our Story</div>
+      <h2 class="section-title">A Place Where Learning Feels Like Play</h2>
+      <p class="section-subtitle">At Diza's Learning Center, we believe every child has the potential to shine. We combine proven teaching methods with a warm, encouraging environment that makes kids excited to learn.</p>
+      <div class="about-features">
+        <div class="feature-item">
+          <div class="feature-icon purple">🎯</div>
+          <div class="feature-text">
+            <h4>Personalized Attention</h4>
+            <p>Small class sizes mean every student gets the help they need, right when they need it.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon orange">🧑‍🏫</div>
+          <div class="feature-text">
+            <h4>Experienced Educators</h4>
+            <p>Our instructors are passionate, qualified, and trained to connect with young learners.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon green">📈</div>
+          <div class="feature-text">
+            <h4>Progress Tracking</h4>
+            <p>Parents receive regular updates so you always know how your child is growing.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon blue">🎮</div>
+          <div class="feature-text">
+            <h4>Fun-First Approach</h4>
+            <p>We use games, activities, and creative methods to make learning stick — and enjoyable!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-card fade-in">
+      <span class="big-emoji">🏫</span>
+      <h3>Building Bright Futures, One Student at a Time</h3>
+      <p>Diza's Learning Center was founded with a simple mission: to give every elementary and middle school student the tools, confidence, and love of learning they need to thrive — in school and beyond.</p>
+      <br>
+      <p style="font-size:0.88rem;color:#aaa;">📍 Serving local families in our community</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs" id="programs">
+  <div class="programs-inner">
+    <div class="programs-header fade-in">
+      <div class="section-tag">📚 What We Teach</div>
+      <h2 class="section-title">Our Programs</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Focused, results-driven coaching designed for elementary (K–5) and middle school (6–8) students.</p>
+    </div>
+    <div class="programs-grid">
+      <div class="program-card math fade-in">
+        <span class="program-emoji">🔢</span>
+        <h3>Mathematics</h3>
+        <p>From counting and fractions to algebra and geometry — we make numbers make sense with a step-by-step, confidence-building approach.</p>
+        <div class="grade-badges">
+          <span class="grade-badge elem">Elementary (K–5)</span>
+          <span class="grade-badge mid">Middle School (6–8)</span>
+        </div>
+        <ul class="topic-list">
+          <li>Number sense &amp; arithmetic</li>
+          <li>Fractions, decimals &amp; percentages</li>
+          <li>Pre-Algebra &amp; Algebra basics</li>
+          <li>Geometry fundamentals</li>
+        </ul>
+      </div>
+      <div class="program-card science fade-in">
+        <span class="program-emoji">🔬</span>
+        <h3>Science</h3>
+        <p>Curiosity is our classroom! We explore the natural world through experiments, visuals, and hands-on activities that bring science alive.</p>
+        <div class="grade-badges">
+          <span class="grade-badge elem">Elementary (K–5)</span>
+          <span class="grade-badge mid">Middle School (6–8)</span>
+        </div>
+        <ul class="topic-list">
+          <li>Life, Earth &amp; Physical science</li>
+          <li>Simple experiments at home</li>
+          <li>Scientific method basics</li>
+          <li>Biology &amp; Chemistry intro</li>
+        </ul>
+      </div>
+      <div class="program-card english fade-in">
+        <span class="program-emoji">📖</span>
+        <h3>English &amp; Reading</h3>
+        <p>Strong readers become strong thinkers. We nurture a love of language through phonics, comprehension, writing, and creative storytelling.</p>
+        <div class="grade-badges">
+          <span class="grade-badge elem">Elementary (K–5)</span>
+          <span class="grade-badge mid">Middle School (6–8)</span>
+        </div>
+        <ul class="topic-list">
+          <li>Phonics &amp; reading fluency</li>
+          <li>Reading comprehension</li>
+          <li>Vocabulary building</li>
+          <li>Writing &amp; grammar skills</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why">
+  <div class="why-inner">
+    <div class="why-header fade-in">
+      <div class="section-tag">💜 Why Parents Choose Us</div>
+      <h2 class="section-title">The Diza's Difference</h2>
+      <p class="section-subtitle">We're not just a tutoring center — we're a second family for your child's learning journey.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-in">
+        <span class="why-icon">👥</span>
+        <h4>Small Group Classes</h4>
+        <p>Maximum 6–8 students per class so every child gets personal attention.</p>
+      </div>
+      <div class="why-card fade-in">
+        <span class="why-icon">🗓️</span>
+        <h4>Flexible Scheduling</h4>
+        <p>Weekday and weekend options designed to fit busy family schedules.</p>
+      </div>
+      <div class="why-card fade-in">
+        <span class="why-icon">📊</span>
+        <h4>Monthly Progress Reports</h4>
+        <p>Stay in the loop with detailed updates on your child's achievements.</p>
+      </div>
+      <div class="why-card fade-in">
+        <span class="why-icon">🛡️</span>
+        <h4>Safe &amp; Welcoming</h4>
+        <p>A nurturing, inclusive space where every child feels seen and valued.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonials-header fade-in">
+      <div class="section-tag">💬 Parent Reviews</div>
+      <h2 class="section-title">What Families Are Saying</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in">
+        <div class="stars">★★★★★</div>
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">My daughter used to dread math. After just two months at Diza's, she actually asks to practice on weekends. The teachers here are absolutely wonderful!</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:var(--purple);">SM</div>
+          <div>
+            <div class="author-name">Sarah M.</div>
+            <div class="author-role">Parent of a 4th grader</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <div class="stars">★★★★★</div>
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">The small class sizes make all the difference. My son's reading level jumped two grades in one semester. I can't recommend this place enough!</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:var(--orange);">JT</div>
+          <div>
+            <div class="author-name">James T.</div>
+            <div class="author-role">Parent of a 6th grader</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <div class="stars">★★★★★</div>
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">Diza's Learning Center has been a blessing. The instructors genuinely care about each child and the fun approach to science makes learning exciting every session.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:var(--blue);color:var(--dark);">RP</div>
+          <div>
+            <div class="author-name">Riya P.</div>
+            <div class="author-role">Parent of a 2nd grader</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info fade-in">
+      <div class="section-tag">🚀 Get Started</div>
+      <h2>Ready to Enroll Your Child?</h2>
+      <p>Fill out the form and we'll reach out within 24 hours to discuss the best program for your child. We'd love to meet your family!</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <span>Your City, State (Update with your address)</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <span>(555) 000-0000 — Update with your number</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <span>hello@dizaslearning.com</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <span>Mon–Sat: 9am – 7pm</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form fade-in">
+      <h3>📋 Enrollment Inquiry</h3>
+      <div class="form-row">
+        <label>Parent / Guardian Name</label>
+        <input type="text" placeholder="Your full name" id="parentName"/>
+      </div>
+      <div class="form-row">
+        <label>Child's Name</label>
+        <input type="text" placeholder="Child's first name" id="childName"/>
+      </div>
+      <div class="form-row">
+        <label>Grade Level</label>
+        <select id="grade">
+          <option value="">Select a grade...</option>
+          <option>Kindergarten</option>
+          <option>1st Grade</option>
+          <option>2nd Grade</option>
+          <option>3rd Grade</option>
+          <option>4th Grade</option>
+          <option>5th Grade</option>
+          <option>6th Grade</option>
+          <option>7th Grade</option>
+          <option>8th Grade</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Subject of Interest</label>
+        <select id="subject">
+          <option value="">Select a subject...</option>
+          <option>Mathematics</option>
+          <option>Science</option>
+          <option>English &amp; Reading</option>
+          <option>Multiple Subjects</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Email Address</label>
+        <input type="email" placeholder="your@email.com" id="email"/>
+      </div>
+      <div class="form-row">
+        <label>Message (Optional)</label>
+        <textarea placeholder="Tell us a little about your child or any questions you have..." id="message"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">Send Inquiry 🚀</button>
+      <div class="form-success" id="formSuccess">
+        🎉 Thank you! We'll be in touch within 24 hours.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo">⭐ Diza's Learning Center</span>
+      <p>Empowering elementary and middle school students to learn, grow, and thrive — one lesson at a time.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#programs">Mathematics</a></li>
+        <li><a href="#programs">Science</a></li>
+        <li><a href="#programs">English &amp; Reading</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Enroll Now</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Diza's Learning Center. All rights reserved.</p>
+    <p>Made with <span class="footer-heart">♥</span> for young learners</p>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  hamburger.textContent = mobileMenu.classList.contains('open') ? '✕' : '☰';
+});
+function closeMobile() {
+  mobileMenu.classList.remove('open');
+  hamburger.textContent = '☰';
+}
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.12});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Form submit
+function submitForm() {
+  const name = document.getElementById('parentName').value;
+  const child = document.getElementById('childName').value;
+  const email = document.getElementById('email').value;
+  if(!name || !child || !email) {
+    alert('Please fill in your name, child\'s name, and email address.');
+    return;
+  }
+  document.querySelector('.form-submit').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+</script>
+</body>
+</html>
