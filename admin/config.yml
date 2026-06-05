@@ -1,0 +1,43 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+
+collections:
+  - name: "pages"
+    label: "Website Content"
+    files:
+      - name: "homepage"
+        label: "Homepage Settings"
+        file: "content/homepage.json"
+        fields:
+          - {label: "Hero Badge Text", name: "hero_badge", widget: "string"}
+          - {label: "Hero Headline", name: "hero_headline", widget: "string"}
+          - {label: "Hero Subtext", name: "hero_subtext", widget: "text"}
+          - {label: "Address", name: "address", widget: "string"}
+          - {label: "Phone Number", name: "phone", widget: "string"}
+          - {label: "Email Address", name: "email", widget: "string"}
+          - {label: "Working Hours", name: "hours", widget: "string"}
+
+  - name: "announcements"
+    label: "Announcements"
+    folder: "content/announcements"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Message", name: "body", widget: "text"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Active", name: "active", widget: "boolean", default: true}
+
+  - name: "programs"
+    label: "Programs"
+    folder: "content/programs"
+    create: true
+    fields:
+      - {label: "Program Name", name: "title", widget: "string"}
+      - {label: "Emoji Icon", name: "emoji", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Grade Levels", name: "grades", widget: "string"}
+      - {label: "Topics Covered", name: "topics", widget: "list"}
