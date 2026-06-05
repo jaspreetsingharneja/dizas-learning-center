@@ -492,7 +492,7 @@ footer{
   <div class="shape shape-3"></div>
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-badge">🎉 Now Enrolling — Summer 2025</div>
+      <div class="hero-badge">🎉 Now Enrolling — Summer 2026</div>
       <h1>Where <span class="highlight">Curious Kids</span> Become <span class="highlight2">Confident</span> Learners</h1>
       <p>Diza's Learning Center offers fun, expert-led tutoring in Math, Science, and English for elementary and middle school students. Small groups, big results!</p>
       <div class="hero-buttons">
@@ -752,15 +752,15 @@ footer{
       <div class="contact-details">
         <div class="contact-item">
           <div class="contact-icon">📍</div>
-          <span>Your City, State (Update with your address)</span>
+          <span>20 Kings Hill Drive, Brampton, ON, L7A 5L9</span>
         </div>
         <div class="contact-item">
           <div class="contact-icon">📞</div>
-          <span>(555) 000-0000 — Update with your number</span>
+          <span>+1-437-445-0059</span>
         </div>
         <div class="contact-item">
           <div class="contact-icon">📧</div>
-          <span>hello@dizaslearning.com</span>
+          <span>diza.jindal@gmail.com</span>
         </div>
         <div class="contact-item">
           <div class="contact-icon">🕐</div>
@@ -770,48 +770,56 @@ footer{
     </div>
     <div class="contact-form fade-in">
       <h3>📋 Enrollment Inquiry</h3>
-      <div class="form-row">
-        <label>Parent / Guardian Name</label>
-        <input type="text" placeholder="Your full name" id="parentName"/>
-      </div>
-      <div class="form-row">
-        <label>Child's Name</label>
-        <input type="text" placeholder="Child's first name" id="childName"/>
-      </div>
-      <div class="form-row">
-        <label>Grade Level</label>
-        <select id="grade">
-          <option value="">Select a grade...</option>
-          <option>Kindergarten</option>
-          <option>1st Grade</option>
-          <option>2nd Grade</option>
-          <option>3rd Grade</option>
-          <option>4th Grade</option>
-          <option>5th Grade</option>
-          <option>6th Grade</option>
-          <option>7th Grade</option>
-          <option>8th Grade</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label>Subject of Interest</label>
-        <select id="subject">
-          <option value="">Select a subject...</option>
-          <option>Mathematics</option>
-          <option>Science</option>
-          <option>English &amp; Reading</option>
-          <option>Multiple Subjects</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label>Email Address</label>
-        <input type="email" placeholder="your@email.com" id="email"/>
-      </div>
-      <div class="form-row">
-        <label>Message (Optional)</label>
-        <textarea placeholder="Tell us a little about your child or any questions you have..." id="message"></textarea>
-      </div>
-      <button class="form-submit" onclick="submitForm()">Send Inquiry 🚀</button>
+      <form name="enrollment" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="enrollment"/>
+        <p style="display:none;"><input name="bot-field"/></p>
+        <div class="form-row">
+          <label>Parent / Guardian Name</label>
+          <input type="text" name="parent-name" placeholder="Your full name" required/>
+        </div>
+        <div class="form-row">
+          <label>Child's Name</label>
+          <input type="text" name="child-name" placeholder="Child's first name" required/>
+        </div>
+        <div class="form-row">
+          <label>Grade Level</label>
+          <select name="grade" required>
+            <option value="">Select a grade...</option>
+            <option>Kindergarten</option>
+            <option>1st Grade</option>
+            <option>2nd Grade</option>
+            <option>3rd Grade</option>
+            <option>4th Grade</option>
+            <option>5th Grade</option>
+            <option>6th Grade</option>
+            <option>7th Grade</option>
+            <option>8th Grade</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Subject of Interest</label>
+          <select name="subject" required>
+            <option value="">Select a subject...</option>
+            <option>Mathematics</option>
+            <option>Science</option>
+            <option>English &amp; Reading</option>
+            <option>Multiple Subjects</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="your@email.com" required/>
+        </div>
+        <div class="form-row">
+          <label>Phone Number (Optional)</label>
+          <input type="tel" name="phone" placeholder="Your phone number"/>
+        </div>
+        <div class="form-row">
+          <label>Message (Optional)</label>
+          <textarea name="message" placeholder="Tell us a little about your child or any questions you have..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Inquiry 🚀</button>
+      </form>
       <div class="form-success" id="formSuccess">
         🎉 Thank you! We'll be in touch within 24 hours.
       </div>
