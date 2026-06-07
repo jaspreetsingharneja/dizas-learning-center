@@ -8,95 +8,105 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
+  --teal:#00BCD4;
+  --teal-dark:#0097A7;
+  --teal-light:#E0F7FA;
+  --blue:#0077CC;
+  --blue-dark:#005FA3;
+  --blue-light:#E6F1FB;
+  --aqua:#4ECDC4;
   --yellow:#FFD93D;
-  --orange:#FF6B35;
-  --blue:#4ECDC4;
-  --purple:#6C63FF;
-  --pink:#FF6B9D;
-  --green:#95D44A;
-  --dark:#1A1A2E;
-  --text:#2D2D44;
-  --light:#FFFDF5;
+  --orange:#FF8C00;
+  --green:#43C59E;
+  --white:#FFFFFF;
+  --dark:#003366;
+  --text:#1A3A5C;
+  --light:#F0FAFA;
   --card-radius:20px;
 }
 html{scroll-behavior:smooth;}
 body{font-family:'Nunito',sans-serif;background:var(--light);color:var(--text);overflow-x:hidden;}
 
+/* ── BUBBLES BACKGROUND ── */
+.bubbles-bg{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  overflow:hidden;pointer-events:none;z-index:0;
+}
+.bubble-circle{
+  position:absolute;border-radius:50%;opacity:0.08;
+  animation:floatBubble linear infinite;
+}
+@keyframes floatBubble{
+  0%{transform:translateY(100%) scale(0.8);opacity:0;}
+  10%{opacity:0.08;}
+  90%{opacity:0.06;}
+  100%{transform:translateY(-120%) scale(1.2);opacity:0;}
+}
+
 /* ── NAV ── */
 nav{
   position:sticky;top:0;z-index:100;
   background:white;
-  border-bottom:3px solid var(--yellow);
+  border-bottom:3px solid var(--teal);
   padding:0 5%;
   display:flex;align-items:center;justify-content:space-between;
   height:70px;
-  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  box-shadow:0 2px 16px rgba(0,119,204,0.08);
 }
 .nav-logo{
   font-family:'Baloo 2',cursive;
-  font-size:1.5rem;font-weight:800;color:var(--purple);
+  font-size:1.5rem;font-weight:800;color:var(--blue);
   display:flex;align-items:center;gap:8px;
   text-decoration:none;
 }
-.nav-logo span{color:var(--orange);}
-.nav-logo .star{font-size:1.2rem;}
+.nav-logo .accent{color:var(--teal-dark);}
 .nav-links{display:flex;gap:28px;list-style:none;}
 .nav-links a{
   text-decoration:none;color:var(--text);
   font-weight:700;font-size:0.95rem;
   transition:color 0.2s;
 }
-.nav-links a:hover{color:var(--purple);}
+.nav-links a:hover{color:var(--blue);}
 .nav-cta{
-  background:var(--orange);color:white;
+  background:var(--blue);color:white;
   border:none;border-radius:50px;
   padding:10px 22px;font-family:'Nunito',sans-serif;
   font-size:0.9rem;font-weight:800;cursor:pointer;
   transition:transform 0.2s,box-shadow 0.2s;
   text-decoration:none;
-  box-shadow:0 4px 0 #c94e1f;
+  box-shadow:0 4px 0 var(--blue-dark);
 }
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 0 #c94e1f;}
-.hamburger{display:none;background:none;border:none;cursor:pointer;font-size:1.6rem;}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--blue-dark);}
+.hamburger{display:none;background:none;border:none;cursor:pointer;font-size:1.6rem;color:var(--blue);}
 .mobile-menu{
   display:none;position:fixed;top:70px;left:0;right:0;
-  background:white;border-bottom:3px solid var(--yellow);
+  background:white;border-bottom:3px solid var(--teal);
   padding:20px;z-index:99;
   flex-direction:column;gap:16px;
 }
 .mobile-menu a{
   font-weight:700;color:var(--text);text-decoration:none;
-  font-size:1.1rem;padding:8px 0;border-bottom:1px dashed #eee;
+  font-size:1.1rem;padding:8px 0;border-bottom:1px dashed #ddf0f5;
 }
 .mobile-menu.open{display:flex;}
 
 /* ── HERO ── */
 .hero{
   min-height:92vh;
-  background:linear-gradient(135deg,#FFF9E6 0%,#FFF0F5 50%,#F0F5FF 100%);
+  background:linear-gradient(135deg,#E6FFFE 0%,#EEF4FF 60%,#E6F1FB 100%);
   display:flex;align-items:center;
   padding:60px 5%;
   position:relative;overflow:hidden;
 }
-.hero::before{
-  content:'';position:absolute;top:-60px;right:-60px;
-  width:380px;height:380px;
-  background:radial-gradient(circle,rgba(108,99,255,0.12),transparent 70%);
-  border-radius:50%;
-}
-.hero::after{
-  content:'';position:absolute;bottom:-40px;left:-40px;
-  width:280px;height:280px;
-  background:radial-gradient(circle,rgba(255,107,53,0.1),transparent 70%);
-  border-radius:50%;
-}
 .hero-inner{
   max-width:1200px;margin:0 auto;width:100%;
   display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;
+  position:relative;z-index:1;
 }
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;
-  background:var(--yellow);color:var(--dark);
+  background:var(--teal-light);color:var(--teal-dark);
+  border:2px solid var(--teal);
   border-radius:50px;padding:8px 18px;
   font-size:0.85rem;font-weight:800;
   margin-bottom:20px;
@@ -110,33 +120,33 @@ nav{
   margin-bottom:18px;
   animation:slideUp 0.7s ease;
 }
-.hero h1 .highlight{color:var(--purple);}
-.hero h1 .highlight2{color:var(--orange);}
+.hero h1 .highlight{color:var(--blue);}
+.hero h1 .highlight2{color:var(--teal-dark);}
 .hero p{
-  font-size:1.05rem;color:#555;line-height:1.7;
+  font-size:1.05rem;color:#4A6880;line-height:1.7;
   margin-bottom:30px;max-width:480px;
   animation:slideUp 0.8s ease;
 }
 .hero-buttons{display:flex;gap:14px;flex-wrap:wrap;animation:slideUp 0.9s ease;}
 .btn-primary{
-  background:var(--purple);color:white;
+  background:var(--blue);color:white;
   border:none;border-radius:50px;
   padding:14px 32px;font-family:'Nunito',sans-serif;
   font-size:1rem;font-weight:800;cursor:pointer;
-  box-shadow:0 5px 0 #4a43cc;
+  box-shadow:0 5px 0 var(--blue-dark);
   transition:transform 0.2s,box-shadow 0.2s;
   text-decoration:none;display:inline-block;
 }
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 7px 0 #4a43cc;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--blue-dark);}
 .btn-secondary{
-  background:white;color:var(--purple);
-  border:2.5px solid var(--purple);border-radius:50px;
+  background:white;color:var(--blue);
+  border:2.5px solid var(--blue);border-radius:50px;
   padding:14px 32px;font-family:'Nunito',sans-serif;
   font-size:1rem;font-weight:800;cursor:pointer;
   transition:background 0.2s,color 0.2s;
   text-decoration:none;display:inline-block;
 }
-.btn-secondary:hover{background:var(--purple);color:white;}
+.btn-secondary:hover{background:var(--blue);color:white;}
 .hero-stats{
   display:flex;gap:28px;margin-top:36px;flex-wrap:wrap;
   animation:slideUp 1s ease;
@@ -144,32 +154,37 @@ nav{
 .stat{text-align:center;}
 .stat-num{
   font-family:'Baloo 2',cursive;
-  font-size:1.8rem;font-weight:800;color:var(--purple);
+  font-size:1.8rem;font-weight:800;color:var(--blue);
 }
-.stat-label{font-size:0.8rem;color:#777;font-weight:600;}
+.stat-label{font-size:0.8rem;color:#7A9BB5;font-weight:600;}
 .hero-illustration{
   display:flex;justify-content:center;align-items:center;
-  animation:float 3s ease-in-out infinite;
 }
-.hero-illustration svg{width:100%;max-width:420px;height:auto;}
 
-/* ── FLOATING SHAPES ── */
-.shape{
-  position:absolute;border-radius:50%;opacity:0.15;
-  animation:float 4s ease-in-out infinite;
-}
-.shape-1{width:60px;height:60px;background:var(--yellow);top:15%;left:8%;animation-delay:0s;}
-.shape-2{width:40px;height:40px;background:var(--blue);top:70%;right:12%;animation-delay:1s;}
-.shape-3{width:30px;height:30px;background:var(--pink);top:40%;right:5%;animation-delay:2s;}
+/* ── ANIMATED CLASSROOM SVG ── */
+.classroom-scene{width:100%;max-width:440px;height:auto;}
+.desk{animation:none;}
+.kid-bounce{animation:kidBounce 2s ease-in-out infinite;}
+.kid-bounce2{animation:kidBounce 2s ease-in-out infinite 0.4s;}
+.kid-bounce3{animation:kidBounce 2s ease-in-out infinite 0.8s;}
+.board-text{animation:blink 3s ease-in-out infinite;}
+.star1{animation:starSpin 4s linear infinite;}
+.star2{animation:starSpin 3s linear infinite reverse;}
+.bubble-float{animation:float 3s ease-in-out infinite;}
+.bubble-float2{animation:float 3s ease-in-out infinite 1s;}
+.bubble-float3{animation:float 3s ease-in-out infinite 2s;}
+@keyframes kidBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.4;}}
+@keyframes starSpin{from{transform-origin:center;transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes floatScene{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.scene-wrapper{animation:floatScene 4s ease-in-out infinite;}
 
-/* ── ABOUT ── */
-.about{
-  padding:90px 5%;
-  background:white;
-}
+/* ── SECTION COMMONS ── */
 .section-tag{
   display:inline-block;
-  background:var(--yellow);color:var(--dark);
+  background:var(--teal-light);color:var(--teal-dark);
+  border:1.5px solid var(--teal);
   border-radius:6px;padding:4px 14px;
   font-size:0.8rem;font-weight:800;letter-spacing:0.05em;
   text-transform:uppercase;margin-bottom:12px;
@@ -181,44 +196,51 @@ nav{
   margin-bottom:14px;
 }
 .section-subtitle{
-  font-size:1rem;color:#666;max-width:560px;line-height:1.7;
+  font-size:1rem;color:#4A6880;max-width:560px;line-height:1.7;
 }
+
+/* ── ABOUT ── */
+.about{padding:90px 5%;background:white;}
 .about-inner{
   max-width:1100px;margin:0 auto;
   display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
 }
 .about-features{margin-top:30px;display:flex;flex-direction:column;gap:18px;}
-.feature-item{
-  display:flex;gap:14px;align-items:flex-start;
-}
+.feature-item{display:flex;gap:14px;align-items:flex-start;}
 .feature-icon{
   width:46px;height:46px;border-radius:12px;
   display:flex;align-items:center;justify-content:center;
   font-size:1.4rem;flex-shrink:0;
 }
-.feature-icon.purple{background:#EEF0FF;}
-.feature-icon.orange{background:#FFF0EA;}
-.feature-icon.green{background:#F0FADF;}
-.feature-icon.blue{background:#E8FAFA;}
+.feature-icon.blue{background:var(--blue-light);}
+.feature-icon.teal{background:var(--teal-light);}
+.feature-icon.green{background:#E8FAF4;}
+.feature-icon.aqua{background:#E6FFFE;}
 .feature-text h4{font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:3px;}
-.feature-text p{font-size:0.88rem;color:#666;line-height:1.5;}
+.feature-text p{font-size:0.88rem;color:#4A6880;line-height:1.5;}
 .about-card{
-  background:linear-gradient(135deg,#F5F3FF,#FFF0F5);
+  background:linear-gradient(135deg,#E6FFFE,#EEF4FF);
   border-radius:var(--card-radius);
   padding:36px;text-align:center;
-  border:2px solid #e8e4ff;
+  border:2px solid #A8EDEA;
+  position:relative;overflow:hidden;
+}
+.about-card::before{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(0,188,212,0.1);
 }
 .about-card .big-emoji{font-size:5rem;margin-bottom:16px;display:block;}
 .about-card h3{
   font-family:'Baloo 2',cursive;font-size:1.4rem;
-  font-weight:800;color:var(--purple);margin-bottom:10px;
+  font-weight:800;color:var(--blue);margin-bottom:10px;
 }
-.about-card p{font-size:0.92rem;color:#666;line-height:1.7;}
+.about-card p{font-size:0.92rem;color:#4A6880;line-height:1.7;}
 
 /* ── PROGRAMS ── */
 .programs{
   padding:90px 5%;
-  background:linear-gradient(180deg,#FFFDF5 0%,#FFF5FA 100%);
+  background:linear-gradient(180deg,#F0FAFA 0%,#EEF4FF 100%);
 }
 .programs-inner{max-width:1100px;margin:0 auto;}
 .programs-header{text-align:center;margin-bottom:50px;}
@@ -232,37 +254,30 @@ nav{
   padding:32px;
   transition:transform 0.3s,box-shadow 0.3s;
   border:2px solid transparent;
-  cursor:default;
   position:relative;overflow:hidden;
 }
 .program-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:5px;
 }
-.program-card.math::before{background:var(--purple);}
-.program-card.science::before{background:var(--blue);}
-.program-card.english::before{background:var(--orange);}
-.program-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.10);}
-.program-card.math:hover{border-color:#EEF0FF;}
-.program-card.science:hover{border-color:#E8FAFA;}
-.program-card.english:hover{border-color:#FFF0EA;}
+.program-card.math::before{background:var(--blue);}
+.program-card.science::before{background:var(--teal-dark);}
+.program-card.english::before{background:var(--aqua);}
+.program-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,119,204,0.10);}
+.program-card.math:hover{border-color:var(--blue-light);}
+.program-card.science:hover{border-color:var(--teal-light);}
+.program-card.english:hover{border-color:#E6FFFE;}
 .program-emoji{font-size:2.8rem;margin-bottom:16px;display:block;}
 .program-card h3{
   font-family:'Baloo 2',cursive;
   font-size:1.3rem;font-weight:800;color:var(--dark);margin-bottom:8px;
 }
-.program-card p{font-size:0.88rem;color:#666;line-height:1.6;margin-bottom:16px;}
+.program-card p{font-size:0.88rem;color:#4A6880;line-height:1.6;margin-bottom:16px;}
 .grade-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
-.grade-badge{
-  border-radius:50px;padding:4px 12px;
-  font-size:0.75rem;font-weight:800;
-}
-.grade-badge.elem{background:#EEF0FF;color:var(--purple);}
-.grade-badge.mid{background:#FFF0EA;color:var(--orange);}
+.grade-badge{border-radius:50px;padding:4px 12px;font-size:0.75rem;font-weight:800;}
+.grade-badge.elem{background:var(--blue-light);color:var(--blue);}
+.grade-badge.mid{background:var(--teal-light);color:var(--teal-dark);}
 .topic-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
-.topic-list li{
-  font-size:0.82rem;color:#555;
-  display:flex;align-items:center;gap:7px;
-}
+.topic-list li{font-size:0.82rem;color:#4A6880;display:flex;align-items:center;gap:7px;}
 .topic-list li::before{content:'✓';color:var(--green);font-weight:800;}
 
 /* ── WHY US ── */
@@ -272,66 +287,30 @@ nav{
 }
 .why-inner{max-width:1100px;margin:0 auto;}
 .why-header{text-align:center;margin-bottom:50px;}
-.why-header .section-tag{background:var(--yellow);}
+.why-header .section-tag{background:rgba(0,188,212,0.2);color:#A8EDEA;border-color:#A8EDEA;}
 .why-header .section-title{color:white;}
-.why-header .section-subtitle{color:rgba(255,255,255,0.65);max-width:560px;margin:0 auto;}
+.why-header .section-subtitle{color:rgba(255,255,255,0.6);max-width:560px;margin:0 auto;}
 .why-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px;
 }
 .why-card{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(0,188,212,0.2);
   border-radius:var(--card-radius);
   padding:28px;text-align:center;
-  transition:background 0.3s;
+  transition:background 0.3s,border-color 0.3s;
 }
-.why-card:hover{background:rgba(255,255,255,0.1);}
+.why-card:hover{background:rgba(0,188,212,0.1);border-color:rgba(0,188,212,0.4);}
 .why-icon{font-size:2.5rem;margin-bottom:14px;display:block;}
 .why-card h4{font-size:1rem;font-weight:800;margin-bottom:8px;color:white;}
 .why-card p{font-size:0.84rem;color:rgba(255,255,255,0.6);line-height:1.6;}
 
-/* ── TESTIMONIALS ── */
-.testimonials{
-  padding:90px 5%;
-  background:white;
-}
-.testimonials-inner{max-width:1100px;margin:0 auto;}
-.testimonials-header{text-align:center;margin-bottom:50px;}
-.testimonials-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:22px;
-}
-.testimonial-card{
-  background:#FFFDF5;
-  border:2px solid var(--yellow);
-  border-radius:var(--card-radius);
-  padding:28px;
-  position:relative;
-}
-.quote-mark{
-  font-size:4rem;line-height:0.8;color:var(--yellow);
-  font-family:Georgia,serif;font-weight:900;
-  margin-bottom:10px;display:block;
-}
-.testimonial-text{font-size:0.92rem;color:#555;line-height:1.7;margin-bottom:20px;}
-.testimonial-author{display:flex;align-items:center;gap:12px;}
-.author-avatar{
-  width:44px;height:44px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;font-weight:800;color:white;
-  flex-shrink:0;
-}
-.author-name{font-size:0.9rem;font-weight:800;color:var(--dark);}
-.author-role{font-size:0.78rem;color:#888;}
-.stars{color:var(--yellow);font-size:0.9rem;margin-bottom:8px;}
-
 /* ── CONTACT ── */
 .contact{
   padding:90px 5%;
-  background:linear-gradient(135deg,#F5F3FF 0%,#FFF0FA 100%);
+  background:linear-gradient(135deg,#E6FFFE 0%,#EEF4FF 100%);
 }
 .contact-inner{
   max-width:1000px;margin:0 auto;
@@ -342,21 +321,22 @@ nav{
   font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;
   color:var(--dark);margin-bottom:14px;
 }
-.contact-info p{font-size:0.95rem;color:#666;line-height:1.7;margin-bottom:28px;}
+.contact-info p{font-size:0.95rem;color:#4A6880;line-height:1.7;margin-bottom:28px;}
 .contact-details{display:flex;flex-direction:column;gap:14px;}
 .contact-item{
-  display:flex;align-items:center;gap:12px;
+  display:flex;align-items:flex-start;gap:12px;
   font-size:0.92rem;color:var(--text);font-weight:600;
 }
 .contact-icon{
   width:40px;height:40px;border-radius:10px;
-  background:var(--purple);color:white;
+  background:var(--blue);color:white;
   display:flex;align-items:center;justify-content:center;
   font-size:1.1rem;flex-shrink:0;
 }
 .contact-form{
   background:white;border-radius:var(--card-radius);
-  padding:36px;box-shadow:0 8px 30px rgba(108,99,255,0.08);
+  padding:36px;box-shadow:0 8px 30px rgba(0,119,204,0.08);
+  border:1.5px solid #A8EDEA;
 }
 .contact-form h3{
   font-family:'Baloo 2',cursive;
@@ -368,30 +348,30 @@ nav{
   color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.04em;
 }
 .form-row input,.form-row select,.form-row textarea{
-  width:100%;border:2px solid #e8e4ff;border-radius:10px;
+  width:100%;border:2px solid #A8EDEA;border-radius:10px;
   padding:11px 14px;font-family:'Nunito',sans-serif;
   font-size:0.92rem;color:var(--text);
   transition:border-color 0.2s,box-shadow 0.2s;
   outline:none;background:white;
 }
 .form-row input:focus,.form-row select:focus,.form-row textarea:focus{
-  border-color:var(--purple);
-  box-shadow:0 0 0 3px rgba(108,99,255,0.12);
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(0,119,204,0.10);
 }
 .form-row textarea{resize:vertical;min-height:90px;}
 .form-submit{
-  width:100%;background:var(--purple);color:white;
+  width:100%;background:var(--blue);color:white;
   border:none;border-radius:50px;
   padding:14px;font-family:'Nunito',sans-serif;
   font-size:1rem;font-weight:800;cursor:pointer;
-  box-shadow:0 5px 0 #4a43cc;
+  box-shadow:0 5px 0 var(--blue-dark);
   transition:transform 0.2s,box-shadow 0.2s;
   margin-top:6px;
 }
-.form-submit:hover{transform:translateY(-2px);box-shadow:0 7px 0 #4a43cc;}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--blue-dark);}
 .form-success{
   display:none;text-align:center;padding:20px;
-  font-size:1rem;font-weight:700;color:var(--purple);
+  font-size:1rem;font-weight:700;color:var(--blue);
 }
 
 /* ── FOOTER ── */
@@ -402,16 +382,16 @@ footer{
 .footer-inner{
   max-width:1100px;margin:0 auto;
   display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;
-  padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.1);
+  padding-bottom:36px;border-bottom:1px solid rgba(0,188,212,0.2);
   margin-bottom:24px;
 }
 .footer-brand .logo{
   font-family:'Baloo 2',cursive;
-  font-size:1.4rem;font-weight:800;color:var(--yellow);
+  font-size:1.4rem;font-weight:800;color:var(--teal);
   margin-bottom:10px;display:block;
 }
 .footer-brand p{font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.6;}
-.footer-col h4{font-size:0.85rem;font-weight:800;margin-bottom:14px;color:var(--yellow);}
+.footer-col h4{font-size:0.85rem;font-weight:800;margin-bottom:14px;color:var(--teal);}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
 .footer-col ul a{
   font-size:0.85rem;color:rgba(255,255,255,0.55);
@@ -423,21 +403,15 @@ footer{
   display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
 }
 .footer-bottom p{font-size:0.8rem;color:rgba(255,255,255,0.4);}
-.footer-heart{color:var(--pink);}
+.footer-heart{color:#FF6B9D;}
+
+/* ── WAVE DIVIDER ── */
+.wave{width:100%;overflow:hidden;line-height:0;}
+.wave svg{display:block;width:100%;}
 
 /* ── ANIMATIONS ── */
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-12px);}
-}
-@keyframes slideUp{
-  from{opacity:0;transform:translateY(24px);}
-  to{opacity:1;transform:translateY(0);}
-}
-@keyframes bounceIn{
-  from{opacity:0;transform:scale(0.8);}
-  to{opacity:1;transform:scale(1);}
-}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes bounceIn{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
 .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
 .fade-in.visible{opacity:1;transform:translateY(0);}
 
@@ -454,7 +428,6 @@ footer{
   .contact-inner{grid-template-columns:1fr;}
   .footer-inner{grid-template-columns:1fr;gap:28px;}
   .footer-bottom{justify-content:center;text-align:center;}
-  .shape{display:none;}
 }
 @media(max-width:500px){
   .hero-buttons{flex-direction:column;align-items:center;}
@@ -467,12 +440,11 @@ footer{
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#home">
-    <span class="star">⭐</span> Diza's <span>Learning</span> Center
+    🌊 Diza's <span class="accent">Learning</span> Center
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#programs">Programs</a></li>
-    
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Enroll Now 🚀</a>
@@ -481,18 +453,24 @@ footer{
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" onclick="closeMobile()">About</a>
   <a href="#programs" onclick="closeMobile()">Programs</a>
-  
   <a href="#contact" onclick="closeMobile()">Contact / Enroll</a>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="shape shape-1"></div>
-  <div class="shape shape-2"></div>
-  <div class="shape shape-3"></div>
+  <!-- Floating bubbles -->
+  <div class="bubbles-bg" aria-hidden="true">
+    <div class="bubble-circle" style="width:80px;height:80px;background:#0077CC;left:5%;animation-duration:8s;animation-delay:0s;"></div>
+    <div class="bubble-circle" style="width:50px;height:50px;background:#00BCD4;left:15%;animation-duration:10s;animation-delay:2s;"></div>
+    <div class="bubble-circle" style="width:100px;height:100px;background:#4ECDC4;left:70%;animation-duration:12s;animation-delay:1s;"></div>
+    <div class="bubble-circle" style="width:60px;height:60px;background:#0097A7;left:85%;animation-duration:9s;animation-delay:3s;"></div>
+    <div class="bubble-circle" style="width:40px;height:40px;background:#0077CC;left:40%;animation-duration:11s;animation-delay:4s;"></div>
+    <div class="bubble-circle" style="width:70px;height:70px;background:#00BCD4;left:55%;animation-duration:7s;animation-delay:1.5s;"></div>
+  </div>
+
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-badge">🎉 Now Enrolling — Summer 2026</div>
+      <div class="hero-badge">🚀 Now Enrolling — Summer 2026</div>
       <h1>Where <span class="highlight">Curious Kids</span> Become <span class="highlight2">Confident</span> Learners</h1>
       <p>Diza's Learning Center offers fun, expert-led tutoring in Math, Science, and English for elementary and middle school students. Small groups, big results!</p>
       <div class="hero-buttons">
@@ -506,54 +484,243 @@ footer{
       </div>
     </div>
     <div class="hero-illustration">
-      <svg viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Background circle -->
-        <circle cx="200" cy="200" r="170" fill="#EEF0FF" opacity="0.6"/>
-        <!-- Desk -->
-        <rect x="70" y="270" width="260" height="16" rx="8" fill="#C5C0F5"/>
-        <rect x="90" y="286" width="20" height="60" rx="6" fill="#B8B2F0"/>
-        <rect x="290" y="286" width="20" height="60" rx="6" fill="#B8B2F0"/>
-        <!-- Book stack -->
-        <rect x="80" y="230" width="70" height="12" rx="4" fill="#FF6B35"/>
-        <rect x="84" y="218" width="62" height="12" rx="4" fill="#FFD93D"/>
-        <rect x="88" y="206" width="54" height="12" rx="4" fill="#6C63FF"/>
-        <!-- Monitor / board -->
-        <rect x="140" y="170" width="130" height="90" rx="12" fill="#6C63FF"/>
-        <rect x="148" y="178" width="114" height="74" rx="8" fill="#EEF0FF"/>
-        <!-- Math on board -->
-        <text x="165" y="205" font-family="Arial" font-size="14" font-weight="bold" fill="#6C63FF">2x + 3 = 11</text>
-        <text x="175" y="228" font-family="Arial" font-size="12" fill="#FF6B35">x = 4 ✓</text>
-        <!-- Monitor stand -->
-        <rect x="195" y="260" width="20" height="14" rx="4" fill="#C5C0F5"/>
-        <rect x="180" y="272" width="50" height="8" rx="4" fill="#C5C0F5"/>
-        <!-- Kid 1 (left) -->
-        <circle cx="108" cy="178" r="24" fill="#FFD93D"/>
-        <circle cx="101" cy="172" r="5" fill="#1A1A2E"/>
-        <circle cx="115" cy="172" r="5" fill="#1A1A2E"/>
-        <path d="M101 184 Q108 190 115 184" stroke="#1A1A2E" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <!-- Hair kid 1 -->
-        <path d="M84 172 Q108 148 132 172" fill="#1A1A2E"/>
-        <!-- Kid 1 body -->
-        <rect x="92" y="202" width="32" height="36" rx="10" fill="#FF6B9D"/>
-        <!-- Kid 2 (right) -->
-        <circle cx="298" cy="178" r="24" fill="#95D44A"/>
-        <circle cx="291" cy="172" r="5" fill="#1A1A2E"/>
-        <circle cx="305" cy="172" r="5" fill="#1A1A2E"/>
-        <path d="M291 184 Q298 190 305 184" stroke="#1A1A2E" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <!-- Hair kid 2 -->
-        <path d="M280 165 Q298 150 316 165 L322 172 Q298 154 274 172Z" fill="#6B3A1F"/>
-        <!-- Kid 2 body -->
-        <rect x="282" y="202" width="32" height="36" rx="10" fill="#4ECDC4"/>
-        <!-- Stars floating -->
-        <text x="52" y="140" font-size="22" fill="#FFD93D">⭐</text>
-        <text x="326" y="130" font-size="18" fill="#FF6B9D">💡</text>
-        <text x="42" y="240" font-size="16" fill="#6C63FF">📐</text>
-        <text x="336" y="250" font-size="16" fill="#FF6B35">🔬</text>
-        <text x="175" y="145" font-size="18" fill="#95D44A">📚</text>
-      </svg>
+      <div class="scene-wrapper">
+        <svg class="classroom-scene" viewBox="0 0 420 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Ocean background circle -->
+          <circle cx="210" cy="200" r="175" fill="#E0F7FA" opacity="0.7"/>
+
+          <!-- Floating bubbles in scene -->
+          <circle class="bubble-float" cx="60" cy="100" r="14" fill="#0077CC" opacity="0.15"/>
+          <circle class="bubble-float2" cx="360" cy="80" r="10" fill="#00BCD4" opacity="0.2"/>
+          <circle class="bubble-float3" cx="350" cy="280" r="18" fill="#4ECDC4" opacity="0.15"/>
+          <circle class="bubble-float" cx="55" cy="260" r="8" fill="#0097A7" opacity="0.2"/>
+
+          <!-- Desk -->
+          <rect x="60" y="278" width="300" height="16" rx="8" fill="#0097A7" opacity="0.6"/>
+          <rect x="80" y="294" width="18" height="55" rx="6" fill="#0077CC" opacity="0.5"/>
+          <rect x="322" y="294" width="18" height="55" rx="6" fill="#0077CC" opacity="0.5"/>
+
+          <!-- Whiteboard -->
+          <rect x="130" y="155" width="160" height="100" rx="12" fill="#003366"/>
+          <rect x="138" y="163" width="144" height="84" rx="8" fill="#E6F1FB"/>
+          <!-- Board content -->
+          <text x="160" y="192" font-family="Arial" font-size="13" font-weight="bold" fill="#0077CC" class="board-text">2x + 5 = 13</text>
+          <text x="168" y="214" font-family="Arial" font-size="11" fill="#00BCD4">x = 4 ✓</text>
+          <text x="155" y="234" font-family="Arial" font-size="10" fill="#4ECDC4">🔬 H₂O = Water</text>
+          <!-- Board stand -->
+          <rect x="202" y="255" width="16" height="14" rx="4" fill="#0077CC" opacity="0.5"/>
+          <rect x="188" y="267" width="44" height="8" rx="4" fill="#0077CC" opacity="0.5"/>
+
+          <!-- Kid 1 (left) - bouncing -->
+          <g class="kid-bounce">
+            <circle cx="100" cy="188" r="26" fill="#FFD93D"/>
+            <!-- Hair -->
+            <path d="M74 184 Q100 156 126 184" fill="#5C3317"/>
+            <!-- Eyes -->
+            <circle cx="92" cy="182" r="4.5" fill="#003366"/>
+            <circle cx="108" cy="182" r="4.5" fill="#003366"/>
+            <!-- Smile -->
+            <path d="M92 196 Q100 204 108 196" stroke="#003366" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- Body -->
+            <rect x="84" y="214" width="32" height="40" rx="10" fill="#0077CC"/>
+            <!-- Arms -->
+            <rect x="66" y="218" width="18" height="10" rx="5" fill="#0077CC"/>
+            <rect x="116" y="218" width="18" height="10" rx="5" fill="#0077CC"/>
+          </g>
+
+          <!-- Kid 2 (middle) - bouncing delayed -->
+          <g class="kid-bounce2">
+            <circle cx="210" cy="185" r="26" fill="#FFB3E6"/>
+            <!-- Hair ponytail -->
+            <path d="M184 180 Q210 154 236 180" fill="#8B1A6B"/>
+            <ellipse cx="236" cy="172" rx="8" ry="12" fill="#8B1A6B"/>
+            <!-- Eyes -->
+            <circle cx="202" cy="179" r="4.5" fill="#003366"/>
+            <circle cx="218" cy="179" r="4.5" fill="#003366"/>
+            <!-- Smile -->
+            <path d="M202 193 Q210 201 218 193" stroke="#003366" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- Body -->
+            <rect x="194" y="211" width="32" height="40" rx="10" fill="#00BCD4"/>
+            <!-- Arms up (excited) -->
+            <rect x="176" y="200" width="18" height="10" rx="5" fill="#00BCD4" transform="rotate(-30 176 200)"/>
+            <rect x="226" y="200" width="18" height="10" rx="5" fill="#00BCD4" transform="rotate(30 226 200)"/>
+          </g>
+
+          <!-- Kid 3 (right) - bouncing -->
+          <g class="kid-bounce3">
+            <circle cx="318" cy="188" r="26" fill="#95D44A"/>
+            <!-- Hair -->
+            <path d="M292 180 Q318 154 344 180 L348 190 Q318 162 288 190Z" fill="#3D1A00"/>
+            <!-- Eyes -->
+            <circle cx="310" cy="182" r="4.5" fill="#003366"/>
+            <circle cx="326" cy="182" r="4.5" fill="#003366"/>
+            <!-- Smile -->
+            <path d="M310 196 Q318 204 326 196" stroke="#003366" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- Body -->
+            <rect x="302" y="214" width="32" height="40" rx="10" fill="#0097A7"/>
+            <!-- Arms -->
+            <rect x="284" y="218" width="18" height="10" rx="5" fill="#0097A7"/>
+            <rect x="334" y="218" width="18" height="10" rx="5" fill="#0097A7"/>
+          </g>
+
+          <!-- Books on desk -->
+          <rect x="66" y="248" width="50" height="12" rx="4" fill="#0077CC" opacity="0.8"/>
+          <rect x="70" y="236" width="44" height="12" rx="4" fill="#00BCD4" opacity="0.8"/>
+          <rect x="74" y="224" width="38" height="12" rx="4" fill="#4ECDC4" opacity="0.8"/>
+
+          <!-- Floating stars & icons -->
+          <text class="star1" x="46" y="148" font-size="22" fill="#FFD93D" style="transform-origin:56px 138px">⭐</text>
+          <text class="star2" x="348" y="138" font-size="18" fill="#00BCD4" style="transform-origin:358px 128px">💡</text>
+          <text x="36" y="240" font-size="16" fill="#0077CC">📐</text>
+          <text x="356" y="258" font-size="16" fill="#00BCD4">🔬</text>
+          <text x="178" y="145" font-size="18" fill="#0097A7">📚</text>
+          <text x="344" y="188" font-size="14" fill="#FFD93D">✨</text>
+          <text x="46" y="188" font-size="14" fill="#4ECDC4">✨</text>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- WAVE -->
+<div class="wave"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="white"/></svg></div>
+
+<!-- FINLEY ANIMATION -->
+<section style="background:white;padding:40px 5% 10px;">
+  <div style="max-width:800px;margin:0 auto;text-align:center;">
+    <div style="display:inline-block;background:#E0F7FA;border:2px solid #A8EDEA;border-radius:14px;padding:4px 18px;font-size:0.8rem;font-weight:800;color:#0097A7;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:14px;">🐠 Why Diza's Works</div>
+    <h2 style="font-family:'Baloo 2',cursive;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;color:#003366;margin-bottom:6px;">Every Kid Has a Finley Story</h2>
+    <p style="font-size:0.95rem;color:#4A6880;line-height:1.7;max-width:520px;margin:0 auto 28px;">Curious in, confident out. Watch Finley swim through Diza's and come out a Smart Cookie!</p>
+
+    <div style="background:#E0F7FA;border-radius:24px;overflow:hidden;position:relative;height:300px;width:100%;max-width:700px;margin:0 auto;">
+
+      <svg style="position:absolute;bottom:120px;left:0;width:100%;" viewBox="0 0 700 60" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 C120,10 240,50 350,30 C460,10 580,50 700,30 L700,60 L0,60Z" fill="#0097A7"/>
+      </svg>
+      <div style="position:absolute;bottom:0;left:0;width:100%;height:125px;background:#0097A7;border-radius:0 0 24px 24px;">
+        <div style="position:absolute;bottom:0;left:0;width:100%;height:28px;background:#006064;border-radius:0 0 24px 24px;"></div>
+      </div>
+
+      <div id="finBubble1" style="position:absolute;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.3);left:12%;bottom:40px;animation:finBubRise 2.5s ease-in infinite;"></div>
+      <div id="finBubble2" style="position:absolute;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);left:40%;bottom:30px;animation:finBubRise 3s ease-in infinite 0.8s;"></div>
+      <div id="finBubble3" style="position:absolute;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.3);left:70%;bottom:50px;animation:finBubRise 2.8s ease-in infinite 1.5s;"></div>
+      <div id="finBubble4" style="position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.3);left:85%;bottom:35px;animation:finBubRise 2.2s ease-in infinite 0.3s;"></div>
+
+      <div id="finSchool" style="position:absolute;bottom:118px;left:50%;transform:translateX(-50%);display:none;transition:opacity 0.8s;">
+        <svg width="120" height="95" viewBox="0 0 120 95" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="35" width="110" height="60" rx="4" fill="#003366"/>
+          <polygon points="0,35 60,5 120,35" fill="#0077CC"/>
+          <rect x="45" y="58" width="30" height="37" rx="3" fill="#4ECDC4"/>
+          <rect x="12" y="44" width="20" height="18" rx="2" fill="#FFD93D"/>
+          <rect x="88" y="44" width="20" height="18" rx="2" fill="#FFD93D"/>
+          <text x="60" y="28" text-anchor="middle" font-family="Nunito,sans-serif" font-size="8" font-weight="800" fill="white">DIZA'S</text>
+          <text x="60" y="39" text-anchor="middle" font-family="Nunito,sans-serif" font-size="6" fill="#A8EDEA">LEARNING CENTER</text>
+          <rect x="57" y="0" width="3" height="9" fill="#FFD93D"/>
+          <polygon points="60,0 67,4 60,8" fill="#FF8C00"/>
+        </svg>
+      </div>
+
+      <div id="finFish" style="position:absolute;bottom:138px;left:30px;transition:all 1.4s cubic-bezier(0.4,0,0.2,1);">
+        <svg width="80" height="54" viewBox="0 0 80 54" xmlns="http://www.w3.org/2000/svg" id="finFishSvg" style="animation:finWiggle 0.5s ease-in-out infinite;">
+          <ellipse cx="38" cy="27" rx="28" ry="17" fill="#FF8C00"/>
+          <polygon points="10,17 0,7 0,47 10,37" fill="#FF6B00"/>
+          <circle cx="52" cy="21" r="5" fill="white"/>
+          <circle cx="54" cy="20" r="2.5" fill="#003366"/>
+          <path d="M44 33 Q52 39 58 33" stroke="#003366" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="30" cy="24" rx="6" ry="3" fill="#FFB347" opacity="0.5"/>
+          <text id="finFishText" x="36" y="31" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="white">?</text>
+        </svg>
+      </div>
+
+      <div id="finCookie" style="position:absolute;bottom:130px;left:50%;transform:translateX(-50%);display:none;">
+        <svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" style="animation:finBounce 0.7s ease-in-out infinite;">
+          <circle cx="45" cy="45" r="38" fill="#D4845A"/>
+          <circle cx="45" cy="45" r="34" fill="#E8A87C"/>
+          <circle cx="28" cy="33" r="5" fill="#5C3317"/>
+          <circle cx="55" cy="28" r="4" fill="#5C3317"/>
+          <circle cx="38" cy="55" r="4" fill="#5C3317"/>
+          <circle cx="60" cy="50" r="5" fill="#5C3317"/>
+          <circle cx="25" cy="52" r="3" fill="#5C3317"/>
+          <circle cx="48" cy="42" r="3" fill="#5C3317"/>
+          <circle cx="32" cy="22" r="4" fill="#5C3317"/>
+          <text x="45" y="50" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" font-weight="800" fill="#003366">A+</text>
+          <circle cx="45" cy="12" r="9" fill="#FFD93D"/>
+          <text x="45" y="16" text-anchor="middle" font-family="Nunito,sans-serif" font-size="11" font-weight="800" fill="#7A5500">★</text>
+        </svg>
+      </div>
+
+      <div id="finStars" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></div>
+      <div id="finCaption" style="position:absolute;top:16px;left:0;width:100%;text-align:center;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#003366;padding:0 20px;"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes finBubRise{0%{transform:translateY(0);opacity:0.4}100%{transform:translateY(-120px);opacity:0}}
+@keyframes finWiggle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes finBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes finStarPop{0%{transform:scale(0) rotate(0deg);opacity:1}100%{transform:scale(1.4) rotate(20deg);opacity:0}}
+</style>
+
+<script>
+(function(){
+  const stages = [
+    {caption:"Meet Finley — a curious little fish! 🌊", fish:true, school:false, cookie:false, fishX:30, fishText:"?", wiggle:true},
+    {caption:"Finley swims to Diza's Learning Center! 🏫", fish:true, school:true, cookie:false, fishX:'35%', fishText:"!", wiggle:true},
+    {caption:"Studying Math, Science & English... 📚", fish:true, school:true, cookie:false, fishX:'50%', fishText:"...", wiggle:false},
+    {caption:"Working SO hard every single day! ⭐", fish:true, school:true, cookie:false, fishX:'50%', fishText:"★", wiggle:false},
+    {caption:"Ta-da! Finley is now a SMART COOKIE! 🍪✨", fish:false, school:false, cookie:true, fishX:'50%', fishText:"", wiggle:false}
+  ];
+  let cur = 0;
+  const fish = document.getElementById('finFish');
+  const fishSvg = document.getElementById('finFishSvg');
+  const fishTxt = document.getElementById('finFishText');
+  const cookie = document.getElementById('finCookie');
+  const school = document.getElementById('finSchool');
+  const caption = document.getElementById('finCaption');
+  const starsEl = document.getElementById('finStars');
+
+  function spawnStars(){
+    starsEl.innerHTML='';
+    const items=['⭐','💡','📐','🔬','📚','✨','🏆','🎉'];
+    for(let i=0;i<10;i++){
+      const s=document.createElement('div');
+      s.style.cssText='position:absolute;font-size:'+(14+Math.random()*16)+'px;left:'+(10+Math.random()*80)+'%;top:'+(10+Math.random()*70)+'%;animation:finStarPop 1s ease forwards;animation-delay:'+(i*0.1)+'s;opacity:0;';
+      s.textContent=items[i%items.length];
+      starsEl.appendChild(s);
+    }
+  }
+
+  function runStage(i){
+    const s = stages[i];
+    caption.textContent = s.caption;
+    school.style.display = s.school ? 'block' : 'none';
+    fish.style.display = s.fish ? 'block' : 'none';
+    cookie.style.display = s.cookie ? 'block' : 'none';
+    starsEl.innerHTML = '';
+
+    if(s.fish){
+      if(typeof s.fishX === 'string'){
+        fish.style.left = s.fishX;
+        fish.style.removeProperty('right');
+      } else {
+        fish.style.left = s.fishX + 'px';
+      }
+      fishTxt.textContent = s.fishText;
+      fishSvg.style.animation = s.wiggle ? 'finWiggle 0.5s ease-in-out infinite' : 'none';
+    }
+    if(s.cookie) spawnStars();
+  }
+
+  function tick(){
+    runStage(cur);
+    cur = (cur + 1) % stages.length;
+  }
+
+  tick();
+  setInterval(tick, 2800);
+})();
+</script>
 
 <!-- ABOUT -->
 <section class="about" id="about">
@@ -564,14 +731,14 @@ footer{
       <p class="section-subtitle">At Diza's Learning Center, we believe every child has the potential to shine. We combine proven teaching methods with a warm, encouraging environment that makes kids excited to learn.</p>
       <div class="about-features">
         <div class="feature-item">
-          <div class="feature-icon purple">🎯</div>
+          <div class="feature-icon blue">🎯</div>
           <div class="feature-text">
             <h4>Personalized Attention</h4>
             <p>Small class sizes mean every student gets the help they need, right when they need it.</p>
           </div>
         </div>
         <div class="feature-item">
-          <div class="feature-icon orange">🧑‍🏫</div>
+          <div class="feature-icon teal">🧑‍🏫</div>
           <div class="feature-text">
             <h4>Experienced Educators</h4>
             <p>Our instructors are passionate, qualified, and trained to connect with young learners.</p>
@@ -585,7 +752,7 @@ footer{
           </div>
         </div>
         <div class="feature-item">
-          <div class="feature-icon blue">🎮</div>
+          <div class="feature-icon aqua">🎮</div>
           <div class="feature-text">
             <h4>Fun-First Approach</h4>
             <p>We use games, activities, and creative methods to make learning stick — and enjoyable!</p>
@@ -594,14 +761,17 @@ footer{
       </div>
     </div>
     <div class="about-card fade-in">
-      <span class="big-emoji">🏫</span>
+      <span class="big-emoji">🌊</span>
       <h3>Building Bright Futures, One Student at a Time</h3>
       <p>Diza's Learning Center was founded with a simple mission: to give every elementary and middle school student the tools, confidence, and love of learning they need to thrive — in school and beyond.</p>
       <br>
-      <p style="font-size:0.88rem;color:#aaa;">📍 Serving local families in our community</p>
+      <p style="font-size:0.88rem;color:#7AABB5;">📍 Serving families in Brampton & surrounding areas</p>
     </div>
   </div>
 </section>
+
+<!-- WAVE -->
+<div class="wave" style="background:white;"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="#F0FAFA"/></svg></div>
 
 <!-- PROGRAMS -->
 <section class="programs" id="programs">
@@ -609,7 +779,7 @@ footer{
     <div class="programs-header fade-in">
       <div class="section-tag">📚 What We Teach</div>
       <h2 class="section-title">Our Programs</h2>
-      <p class="section-subtitle" style="margin:0 auto;">Focused, results-driven coaching designed for elementary (K–5) and middle school (6–8) students.</p>
+      <p class="section-subtitle" style="margin:0 auto;">Focused, results-driven coaching for elementary (K–5) and middle school (6–8) students.</p>
     </div>
     <div class="programs-grid">
       <div class="program-card math fade-in">
@@ -665,7 +835,7 @@ footer{
 <section class="why">
   <div class="why-inner">
     <div class="why-header fade-in">
-      <div class="section-tag">💜 Why Parents Choose Us</div>
+      <div class="section-tag">🌊 Why Parents Choose Us</div>
       <h2 class="section-title">The Diza's Difference</h2>
       <p class="section-subtitle">We're not just a tutoring center — we're a second family for your child's learning journey.</p>
     </div>
@@ -704,11 +874,7 @@ footer{
       <div class="contact-details">
         <div class="contact-item">
           <div class="contact-icon">📍</div>
-          <span>20 Kings Hill Drive, Brampton, ON, L7A 5L9</span>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">📞</div>
-          <span>+1-437-445-0059</span>
+          <span>Mississauga Rd. &amp; Bovaird Dr. Intersection, Near Mount Pleasant GO Station, Brampton</span>
         </div>
         <div class="contact-item">
           <div class="contact-icon">📧</div>
@@ -783,7 +949,7 @@ footer{
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <span class="logo">⭐ Diza's Learning Center</span>
+      <span class="logo">🌊 Diza's Learning Center</span>
       <p>Empowering elementary and middle school students to learn, grow, and thrive — one lesson at a time.</p>
     </div>
     <div class="footer-col">
@@ -798,19 +964,17 @@ footer{
       <h4>Quick Links</h4>
       <ul>
         <li><a href="#about">About Us</a></li>
-        
         <li><a href="#contact">Enroll Now</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2025 Diza's Learning Center. All rights reserved.</p>
+    <p>© 2026 Diza's Learning Center. All rights reserved.</p>
     <p>Made with <span class="footer-heart">♥</span> for young learners</p>
   </div>
 </footer>
 
 <script>
-// Mobile menu
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 hamburger.addEventListener('click', () => {
@@ -821,25 +985,10 @@ function closeMobile() {
   mobileMenu.classList.remove('open');
   hamburger.textContent = '☰';
 }
-
-// Scroll animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, {threshold: 0.12});
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-// Form submit
-function submitForm() {
-  const name = document.getElementById('parentName').value;
-  const child = document.getElementById('childName').value;
-  const email = document.getElementById('email').value;
-  if(!name || !child || !email) {
-    alert('Please fill in your name, child\'s name, and email address.');
-    return;
-  }
-  document.querySelector('.form-submit').style.display = 'none';
-  document.getElementById('formSuccess').style.display = 'block';
-}
 </script>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
